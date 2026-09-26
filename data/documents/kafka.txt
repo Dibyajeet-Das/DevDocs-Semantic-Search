@@ -1,0 +1,11 @@
+Apache Kafka is a distributed event streaming platform.
+
+Kafka uses producers to publish messages and consumers to read messages.
+
+Messages are stored in topics.
+
+Kafka topics can be divided into partitions to provide scalability and
+parallel processing.
+
+Kafka is commonly used for event-driven architectures and real-time data
+processing.

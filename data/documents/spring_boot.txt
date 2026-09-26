@@ -1,0 +1,13 @@
+Spring Boot is a Java framework used to build production-ready applications.
+
+Spring Boot simplifies the development of Spring applications by providing
+auto-configuration, starter dependencies, embedded servers, and sensible defaults.
+
+A Spring Boot application can expose REST APIs using Spring Web and the
+@RestController annotation.
+
+Dependency Injection is a core concept in Spring. Spring manages objects
+called beans and injects their dependencies automatically.
+
+Spring Boot applications commonly use application.properties or
+application.yml for configuration.

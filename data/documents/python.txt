@@ -1,0 +1,9 @@
+Python is a high-level programming language commonly used for web development,
+automation, data science, artificial intelligence, and machine learning.
+
+Python uses dynamic typing and supports object-oriented, functional, and
+procedural programming styles.
+
+Python applications can use packages installed through pip.
+
+FastAPI is a Python framework commonly used to build APIs.

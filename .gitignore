@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+.venv312/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# ChromaDB local database
+chroma_db/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
