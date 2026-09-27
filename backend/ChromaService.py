@@ -1,8 +1,16 @@
 import logging
 import chromadb
+from pathlib import Path
 
 #__name__ represents the current module name where the logs will be generated.
 logger = logging.getLogger(__name__)
+
+# Get the project root directory
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ChromaDB database location
+CHROMA_DB_PATH = BASE_DIR / "chroma_db"
+
 
 class ChromaService:
     #It will get called automatically when we create an object
@@ -12,17 +20,14 @@ class ChromaService:
             logger.info("Initializing ChromaDB || Start ")
             #Create connection
             self.client = chromadb.PersistentClient(
-                path="./chroma_db"
+                path=str(CHROMA_DB_PATH)
             )
             #try to connect with the collection if not there then create it
             self.collection = self.client.get_or_create_collection(
                 name="devdocs"
             )
 
-            logger.info(
-                "ChromaDB initialized successfully. Collection: %s",
-                self.collection.name
-            )
+            logger.info("ChromaDB initialized successfully. Collection: %s",self.collection.name)
 
         except Exception:
             logger.exception("Failed to initialize ChromaDB")

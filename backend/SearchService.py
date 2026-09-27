@@ -1,6 +1,9 @@
 import logging
-from EmbeddingService import EmbeddingService
-from ChromaService import ChromaService
+#from EmbeddingService import EmbeddingService
+#from ChromaService import ChromaService
+
+from .EmbeddingService import EmbeddingService
+from .ChromaService import ChromaService
 
 logger = logging.getLogger(__name__)
 

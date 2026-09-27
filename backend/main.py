@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 
+from backend.SearchService import SearchService
+
 app = FastAPI()
+
+search_service = SearchService()
 
 
 @app.get("/")
@@ -9,9 +13,24 @@ def home():
         "message": "Welcome to DevDocs Semantic Search"
     }
 
+
 @app.get("/health")
 def health():
     return {
-        "status": "UP",
-        "message":"Hello my self Up bala"
+        "status": "UP"
     }
+
+
+@app.get("/search")
+def search(query: str, top_k: int = 3):
+
+    count = search_service.chroma_service.count_documents()
+
+    print("ChromaDB document count:", count)
+
+    results = search_service.search(
+        query=query,
+        top_k=top_k
+    )
+
+    return results
