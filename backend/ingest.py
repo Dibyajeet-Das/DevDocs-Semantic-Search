@@ -22,7 +22,10 @@ def ingest_documents():
         chroma_service = ChromaService()
 
         # Find all .txt files or we can say it will process the documents one by one
-        document_files = DOCUMENTS_PATH.glob("*.txt")
+        #document_files = DOCUMENTS_PATH.glob("*.txt")
+
+        #rglob-> Go inside the folder, and also go inside its subfolders, and continue searching deeper.
+        document_files = DOCUMENTS_PATH.rglob("*.txt")
 
         for file_path in document_files:
 
@@ -40,8 +43,12 @@ def ingest_documents():
             document_id = file_path.stem
 
             # Document metadata
+            # Category is automatically taken from the parent folder name
+            category = file_path.parent.name
+
             metadata = {
-                "source": file_path.name
+                "source": file_path.name,
+                "category": category
             }
 
             # Store document in ChromaDB

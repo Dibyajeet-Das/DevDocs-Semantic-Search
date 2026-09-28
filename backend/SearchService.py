@@ -22,7 +22,7 @@ class SearchService:
             logger.exception("Failed to initialize SearchService")
             raise
 
-    def search(self, query, top_k=3):
+    def search(self, query, top_k=3, category=None):
         try:
             logger.info( "Searching documents. query=%s",  query)
 
@@ -34,16 +34,34 @@ class SearchService:
             # Search ChromaDB using that vector
             results = self.chroma_service.search(
                 query_embedding=query_embedding,
-                top_k=top_k
+                top_k=top_k,
+                category=category
             )
+
+            # Create a clean response for the API
+            searchResults = []
+
+            ids = results["ids"][0]
+            documents = results["documents"][0]
+            metadatas = results["metadatas"][0]
+            distances = results["distances"][0]
+
+            for i in range(len(ids)):
+                searchResults.append({
+                    "document": metadatas[i]["source"],
+                    "content": documents[i],
+                    "distance": distances[i]
+                })
 
             logger.info("Search completed successfully.")
 
-            return results
+            return {
+                "query": query,
+                "results": searchResults
+            }
 
         except Exception:
-            logger.exception("Failed to search documents. query=%s",query)
-
+            logger.exception("Failed to search documents. query=%s",query )
             raise
 
 

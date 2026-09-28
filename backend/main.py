@@ -22,7 +22,7 @@ def health():
 
 
 @app.get("/search")
-def search(query: str, top_k: int = 3):
+def search(query: str, top_k: int = 3,category: str = None):
 
     count = search_service.chroma_service.count_documents()
 
@@ -30,7 +30,8 @@ def search(query: str, top_k: int = 3):
 
     results = search_service.search(
         query=query,
-        top_k=top_k
+        top_k=top_k,
+        category=category
     )
 
     return results

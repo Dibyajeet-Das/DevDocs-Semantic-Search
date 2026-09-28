@@ -68,13 +68,22 @@ class ChromaService:
 
 
     # Search the document in the Db for the user to return the response
-    def search(self, query_embedding, top_k=3):
+    def search(self, query_embedding, top_k=3, category=None):
         try:
-            logger.info("Searching ChromaDB. top_k=%s",top_k)
+            logger.info("Searching ChromaDB. top_k=%s, category=%s",top_k,category)
+
+            # Metadata filter
+            FilterData = None
+
+            if category:
+                FilterData = {
+                    "category": category
+                }
 
             results = self.collection.query(
                 query_embeddings=[query_embedding],
-                n_results=top_k
+                n_results=top_k,
+                where=FilterData
             )
 
             logger.info("ChromaDB search completed successfully.")
