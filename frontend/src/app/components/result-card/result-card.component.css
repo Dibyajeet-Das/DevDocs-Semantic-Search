@@ -1,0 +1,31 @@
+.card {
+  --tag: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--tag);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.card[data-category='spring'] { --tag: #2f7d32; }
+.card[data-category='python'] { --tag: #3b6fb6; }
+.card[data-category='kafka']  { --tag: #6b4bb0; }
+.card[data-category='docker'] { --tag: #0b7fb8; }
+
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.heading { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+h3 { font-size: 1.15rem; }
+.tag {
+  font-size: .78rem;
+  color: var(--tag);
+  border: 1px solid var(--tag);
+  border-radius: 999px;
+  padding: 1px 9px;
+  text-transform: capitalize;
+}
+.score { display: flex; align-items: center; gap: 8px; min-width: 130px; justify-content: flex-end; }
+.value { font-weight: 500; font-variant-numeric: tabular-nums; }
+.bar { width: 64px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.fill { display: block; height: 100%; background: var(--tag); }
+.body { margin: 12px 0 10px; white-space: pre-wrap; max-width: 75ch; }
+footer { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: .85rem; }
+.link { background: none; border: 0; color: var(--accent); cursor: pointer; font: inherit; padding: 2px 0; text-decoration: underline; }
