@@ -1,0 +1,75 @@
+<main class="page">
+  <header class="masthead">
+    <h1>DevDocs Semantic Search</h1>
+    <p class="lede">Ask a question in your own words. Results are matched by meaning, not keywords.</p>
+    <span class="status" [class.up]="backendUp() === true" [class.down]="backendUp() === false">
+      @switch (backendUp()) {
+        @case (true) { API connected }
+        @case (false) { API unreachable }
+        @default { Checking API… }
+      }
+    </span>
+  </header>
+
+  <form class="search" (ngSubmit)="search()" role="search">
+    <label class="sr" for="q">Search query</label>
+    <input id="q" name="query" type="search" [(ngModel)]="query"
+           placeholder="How does Spring Boot manage objects?" autocomplete="off" />
+    <button type="submit" [disabled]="loading()">{{ loading() ? 'Searching…' : 'Search' }}</button>
+
+    <div class="filters">
+      <label>
+        Category
+        <select name="category" [(ngModel)]="category">
+          @for (c of categories; track c.value) {
+            <option [value]="c.value">{{ c.label }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Results
+        <select name="topK" [(ngModel)]="topK">
+          @for (n of topKOptions; track n) {
+            <option [ngValue]="n">{{ n }}</option>
+          }
+        </select>
+      </label>
+    </div>
+  </form>
+
+  @if (error()) {
+    <p class="notice error" role="alert">{{ error() }}</p>
+  }
+
+  @if (!searched() && !loading()) {
+    <section class="examples">
+      <p>Try one of these:</p>
+      <ul>
+        @for (e of examples; track e) {
+          <li><button type="button" (click)="useExample(e)">{{ e }}</button></li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (searched() && !loading() && !error()) {
+    <section aria-live="polite">
+      <h2 class="summary">
+        {{ results().length }} {{ results().length === 1 ? 'result' : 'results' }} for
+        “{{ lastQuery() }}”
+      </h2>
+
+      @if (results().length === 0) {
+        <p class="notice">
+          No matching documents. Try different wording, or set the category to All categories.
+        </p>
+      }
+
+      <div class="results">
+        @for (r of results(); track r.id; let i = $index) {
+          <app-result-card [result]="r" [rank]="i + 1" />
+        }
+      </div>
+    </section>
+  }
+</main>

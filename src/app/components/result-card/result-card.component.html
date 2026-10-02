@@ -1,0 +1,29 @@
+<article class="card" [attr.data-category]="result.category">
+  <header>
+    <div class="heading">
+      <h3>{{ result.title }}</h3>
+      @if (result.category) {
+        <span class="tag">{{ result.category }}</span>
+      }
+    </div>
+    @if (result.similarity !== null) {
+      <div class="score" [attr.aria-label]="'Similarity ' + result.similarity.toFixed(2)">
+        <span class="value">{{ result.similarity.toFixed(2) }}</span>
+        <span class="bar"><span class="fill" [style.width.%]="percent"></span></span>
+      </div>
+    }
+  </header>
+
+  <p class="body">{{ text }}</p>
+
+  <footer>
+    @if (result.source) {
+      <span class="source">{{ result.source }}</span>
+    }
+    @if (isLong) {
+      <button type="button" class="link" (click)="toggle()" [attr.aria-expanded]="expanded()">
+        {{ expanded() ? 'Show less' : 'Show more' }}
+      </button>
+    }
+  </footer>
+</article>
